@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GameData.cs" />
+    <Compile Include="FileReader.cs" />
     <Compile Include="SnakeHighscore.cs" />
     <Compile Include="SnakePart.cs" />
     <Page Include="MainWindow.xaml">

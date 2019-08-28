@@ -11,7 +11,14 @@ namespace Snake_Game
     /// </summary>
     public class SnakeHighscore
     {
+        /// <summary>
+        /// Player name of highscore entry
+        /// </summary>
         public string PlayerName { get; set; }
+
+        /// <summary>
+        /// Score of highscore entry
+        /// </summary>
         public int Score { get; set; } 
     }
 }

@@ -6,18 +6,19 @@
         xmlns:local="clr-namespace:Snake_Game"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        x:Name="window"
+        x:Name="Window"
         Title="Snake - Score: 0" SizeToContent="WidthAndHeight" 
-        ContentRendered="Window_ContentRendered" KeyUp="GameArea_KeyUp"
-        ResizeMode="NoResize" WindowStyle="None" Background="Black" MouseDown="GameWindow_MouseDown">
+        ContentRendered="Window_ContentRendered" KeyUp="Window_KeyUp"
+        ResizeMode="NoResize" WindowStyle="None" Background="Black" MouseDown="Window_MouseDown">
 
-    <!--Resources-->
     <Window.Resources>
-        <CollectionViewSource Source="{Binding ElementName=window, Path=HighscoreList}" x:Key="HighScoreListViewSource">
+
+        <CollectionViewSource Source="{Binding ElementName=Window, Path=HighscoreList}" x:Key="HighScoreListViewSource">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription Direction="Descending" PropertyName="Score" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
+
     </Window.Resources>
     
     <DockPanel>
@@ -65,12 +66,18 @@
                 <!--Welcome Page-->
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrWelcomeMessage" Panel.ZIndex="1">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
-                        <TextBlock Text="Snake" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0" />
+                        <TextBlock FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0" >
+                            Snake
+                        </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="20" FontSize="16">
                             Use the arrow keys to control the green snake. Eat the red apples to gain points. If you crash into the tail of the snake or the walls, you lose!
                         </TextBlock>
-                        <TextBlock Text="Press SPACE to start!" FontSize="20" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" />
-                        <Button Name="btnShowighScoreList" Click="BtnShowighScoreList_Click"  Content="Show High Score List..." Width="Auto" Padding="10,3" Margin="20"/>
+                        <TextBlock FontSize="20" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" >
+                            Press SPACE to start!
+                        </TextBlock>
+                        <Button Name="btnShowighScoreList_fromWelcome" Click="BtnShowighScoreList_fromWelcome_Click"  Width="Auto" Padding="10,3" Margin="20">
+                            Show High Score List...
+                        </Button>
                     </StackPanel>
                 </Border>
                 
@@ -83,7 +90,7 @@
                         <ItemsControl ItemsSource="{Binding Source={StaticResource HighScoreListViewSource}}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <DockPanel Margin="10,8,10,8">
+                                    <DockPanel Margin="15,8,15,8">
                                         <TextBlock Text="{Binding PlayerName}" DockPanel.Dock="Left" FontSize="18" FontWeight="Bold" />
                                         <TextBlock Text="{Binding Score}" DockPanel.Dock="Right" TextAlignment="Right" FontSize="18" FontWeight="Bold" />
                                     </DockPanel>
@@ -102,8 +109,8 @@
                         <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="Wrap">
                             Congratulatons! You made it to the highscore list. Enter your name below:
                         </TextBlock>
-                        <TextBox Name="txtPlayerName" FontSize="28" FontWeight="Bold" MaxLength="10" Margin="20" HorizontalContentAlignment="Center"></TextBox>
-                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" Click="BtnAddToHighscoreList_Click"  Padding="10,5">Submit</Button>
+                        <TextBox Name="txtPlayerName" FontSize="28" FontWeight="Bold" MaxLength="10" Margin="20" HorizontalContentAlignment="Center" KeyDown="TxtPlayerName_KeyDown" Panel.ZIndex="0" />
+                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" Click="BtnAddToHighscoreList_Click"  Padding="10,5" Panel.ZIndex="1" >Submit</Button>
                     </StackPanel>
                 </Border>
                 
@@ -116,12 +123,15 @@
                         <TextBlock FontSize="20" HorizontalAlignment="Center">
                             Your Score:
                         </TextBlock>
-                        <TextBlock Name="tbFinalScore" TextAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="Red" Margin="0,20,0,20" >
+                        <TextBlock Name="tbFinalScore" TextAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="Red" Margin="0,15,0,15" >
                             0
                         </TextBlock>
-                        <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="0,13,0,0">
                             Press SPACE to start a new game...
                         </TextBlock>
+                        <Button Name="btnShowighScoreList_fromGameOver" Click="BtnShowighScoreList_fromGameOver_Click"  Width="Auto" Padding="10,3" Margin="20">
+                            Show High Score List...
+                        </Button>
                     </StackPanel>
                 </Border>
                 
