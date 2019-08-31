@@ -14,9 +14,7 @@
     <Window.Resources>
 
         <CollectionViewSource Source="{Binding ElementName=Window, Path=HighscoreList}" x:Key="HighScoreListViewSource">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription Direction="Descending" PropertyName="Score" />
-            </CollectionViewSource.SortDescriptions>
+            
         </CollectionViewSource>
 
     </Window.Resources>
@@ -110,8 +108,8 @@
                         </Button>
 
                         <StackPanel Orientation="Vertical" >
-                            <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="0,10">
-                                <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" >
+                            <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="10,4">
+                                <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,3,0,3">
                                     High Score List
                                 </TextBlock>
                             </Border>

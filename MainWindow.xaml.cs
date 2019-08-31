@@ -319,13 +319,24 @@ namespace Snake_Game
         /// </summary>
         private void AddToHighscoreList()
         {
-            int newIndex = 0;
             // Figure out where new entry should be inserted
-            if (HighscoreList.Count > 0 && currentScore < HighscoreList.Max(x => x.Score))
+            int newIndex = 0;
+            if (HighscoreList.Count == 0)
             {
-                SnakeHighscore justAbove = HighscoreList.OrderByDescending(x => x.Score).First(x => x.Score >= currentScore);
-                if (justAbove != null)
-                    newIndex = HighscoreList.IndexOf(justAbove) + 1;
+                // List is empty and new entry is the only highscore
+                newIndex = 0;
+            }
+            else if (currentScore <= HighscoreList.Min(x => x.Score))
+            {
+                // List is not full and new entry is the lowest highscore 
+                newIndex = HighscoreList.Count;
+            }
+            else
+            {
+                // List can be traversed for the correct spot
+                SnakeHighscore current = HighscoreList.First(x => x.Score < currentScore);
+                if (current != null)
+                    newIndex = HighscoreList.IndexOf(current);
             }
 
             // Create and insert the new entry
