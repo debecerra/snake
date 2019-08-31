@@ -27,7 +27,7 @@ namespace Snake_Game
                 {
                     List<SnakeHighscore> tempList = (List<SnakeHighscore>)serializer.Deserialize(reader);
                     HighscoreList.Clear();
-                    foreach (var item in tempList.OrderByDescending(x => x.Score))
+                    foreach (SnakeHighscore item in tempList.OrderByDescending(x => x.Score))
                         HighscoreList.Add(item);
                 }
             }

@@ -183,19 +183,19 @@ namespace Snake_Game
         {
             AddToHighscoreList();
         }
-        
+
         /// <summary>
-        /// Event handler for TxtPlayerName KeyDown
+        /// Event handler for BtnClearAllHighscores Click - Reset all highscore data
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TxtPlayerName_KeyDown(object sender, KeyEventArgs e)
+        private void BtnClearAllHighscores_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                AddToHighscoreList();
-            }
-            
+            HighscoreList.Clear();
+            fileReader.SaveHighscoreList(HighscoreList);
+
+            bdrHighscoreList.Visibility = Visibility.Collapsed;
+            bdrWelcomeMessage.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -345,6 +345,8 @@ namespace Snake_Game
 
             bdrNewHighScore.Visibility = Visibility.Collapsed;
             bdrHighscoreList.Visibility = Visibility.Visible;
+
+            txtPlayerName.Clear();
         }
 
         #endregion

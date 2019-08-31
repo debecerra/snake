@@ -62,9 +62,29 @@
         <!--Game Area-->
         <Border BorderBrush="Black" BorderThickness="5">
             <Canvas Name="GameArea" ClipToBounds="True" Width="400" Height="400">
+
+                <Canvas.Resources>
+
+                    <Style TargetType="Border" x:Key="MessageBorderStyle">
+                        <Setter Property="BorderBrush" Value="Silver" />
+                        <Setter Property="BorderThickness" Value="2" />
+                        <Setter Property="Height" Value="300" />
+                        <Setter Property="Width" Value="300" />
+                        <Setter Property="Canvas.Left" Value="50" />
+                        <Setter Property="Canvas.Top" Value="50" />
+                        <Setter Property="Panel.ZIndex" Value="1" />
+                    </Style>
+
+                    <Style TargetType="Button" >
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="Padding" Value="10,3" />
+                        <Setter Property="Margin" Value="16" />
+                    </Style>
+
+                </Canvas.Resources>
                 
                 <!--Welcome Page-->
-                <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrWelcomeMessage" Panel.ZIndex="1">
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrWelcomeMessage">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
                         <TextBlock FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0" >
                             Snake
@@ -75,33 +95,44 @@
                         <TextBlock FontSize="20" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" >
                             Press SPACE to start!
                         </TextBlock>
-                        <Button Name="btnShowighScoreList_fromWelcome" Click="BtnShowighScoreList_fromWelcome_Click"  Width="Auto" Padding="10,3" Margin="20">
+                        <Button Name="btnShowighScoreList_fromWelcome" Click="BtnShowighScoreList_fromWelcome_Click" >
                             Show High Score List...
                         </Button>
                     </StackPanel>
                 </Border>
                 
                 <!--Highscore List-->
-                <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrHighscoreList" Panel.ZIndex="1" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" Background="AliceBlue">
-                        <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="0,10">
-                            <TextBlock Text="High Score List" FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" />
-                        </Border>
-                        <ItemsControl ItemsSource="{Binding Source={StaticResource HighScoreListViewSource}}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <DockPanel Margin="15,8,15,8">
-                                        <TextBlock Text="{Binding PlayerName}" DockPanel.Dock="Left" FontSize="18" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding Score}" DockPanel.Dock="Right" TextAlignment="Right" FontSize="18" FontWeight="Bold" />
-                                    </DockPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrHighscoreList" Visibility="Collapsed">
+                    <DockPanel Background="AliceBlue">
+
+                        <Button DockPanel.Dock="Bottom" Name="btnClearAllHighscores" Click="BtnClearAllHighscores_Click">
+                            Clear All Highscores...
+                        </Button>
+
+                        <StackPanel Orientation="Vertical" >
+                            <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="0,10">
+                                <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" >
+                                    High Score List
+                                </TextBlock>
+                            </Border>
+                            <ItemsControl ItemsSource="{Binding Source={StaticResource HighScoreListViewSource}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="15,5,15,5">
+                                            <TextBlock Text="{Binding PlayerName}" DockPanel.Dock="Left" FontSize="18" FontWeight="Medium" />
+                                            <TextBlock Text="{Binding Score}" DockPanel.Dock="Right" TextAlignment="Right" FontSize="18" FontWeight="Medium" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                        
+                    </DockPanel>
+                    
                 </Border>
                 
                 <!--New Highscore-->
-                <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrNewHighScore" Panel.ZIndex="1" Visibility="Collapsed">
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrNewHighScore" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
                         <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" >
                             New Highscore!
@@ -109,13 +140,15 @@
                         <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="Wrap">
                             Congratulatons! You made it to the highscore list. Enter your name below:
                         </TextBlock>
-                        <TextBox Name="txtPlayerName" FontSize="28" FontWeight="Bold" MaxLength="10" Margin="20" HorizontalContentAlignment="Center" KeyDown="TxtPlayerName_KeyDown" Panel.ZIndex="0" />
-                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" Click="BtnAddToHighscoreList_Click"  Padding="10,5" Panel.ZIndex="1" >Submit</Button>
+                        <TextBox Name="txtPlayerName" FontSize="28" FontWeight="Bold" MaxLength="10" Margin="20" HorizontalContentAlignment="Center" Panel.ZIndex="0" />
+                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" IsDefault="True" Click="BtnAddToHighscoreList_Click" Panel.ZIndex="1" >
+                            Submit
+                        </Button>
                     </StackPanel>
                 </Border>
                 
                 <!--Game Over-->
-                <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrGameOver" Panel.ZIndex="1" Visibility="Collapsed">
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrGameOver" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
                         <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" >
                             Game Over!
@@ -129,7 +162,7 @@
                         <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="0,13,0,0">
                             Press SPACE to start a new game...
                         </TextBlock>
-                        <Button Name="btnShowighScoreList_fromGameOver" Click="BtnShowighScoreList_fromGameOver_Click"  Width="Auto" Padding="10,3" Margin="20">
+                        <Button Name="btnShowighScoreList_fromGameOver" Click="BtnShowighScoreList_fromGameOver_Click" >
                             Show High Score List...
                         </Button>
                     </StackPanel>
