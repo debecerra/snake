@@ -45,6 +45,7 @@ namespace Snake_Game
         // Game status properties
         public enum SnakeDirection { Left, Right, Up, Down };
         private SnakeDirection snakeDirection = SnakeDirection.Right;
+        private bool isDirectionChanged = false;
         private int snakeLength;
         private int currentScore = 0;
 
@@ -93,28 +94,44 @@ namespace Snake_Game
         /// <param name="e"></param>
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            if (gameTickTimer.IsEnabled)
             {
-                case (Key.Up):
-                case (Key.W):
-                    snakeDirection = snakeDirection == SnakeDirection.Down ? snakeDirection : SnakeDirection.Up;
-                    break;
-                case (Key.Down):
-                case (Key.S):
-                    snakeDirection = snakeDirection == SnakeDirection.Up ? snakeDirection : SnakeDirection.Down;
-                    break;
-                case (Key.Left):
-                case (Key.A):
-                    snakeDirection = snakeDirection == SnakeDirection.Right ? snakeDirection : SnakeDirection.Left;
-                    break;
-                case (Key.Right):
-                case (Key.D):
-                    snakeDirection = snakeDirection == SnakeDirection.Left ? snakeDirection : SnakeDirection.Right;
-                    break;
-                case (Key.Space):
+                // Game session is active
+                if (!isDirectionChanged)
+                {
+                    switch (e.Key)
+                    {
+                        case (Key.Up):
+                        case (Key.W):
+                            snakeDirection = snakeDirection == SnakeDirection.Down ? snakeDirection : SnakeDirection.Up;
+                            break;
+                        case (Key.Down):
+                        case (Key.S):
+                            snakeDirection = snakeDirection == SnakeDirection.Up ? snakeDirection : SnakeDirection.Down;
+                            break;
+                        case (Key.Left):
+                        case (Key.A):
+                            snakeDirection = snakeDirection == SnakeDirection.Right ? snakeDirection : SnakeDirection.Left;
+                            break;
+                        case (Key.Right):
+                        case (Key.D):
+                            snakeDirection = snakeDirection == SnakeDirection.Left ? snakeDirection : SnakeDirection.Right;
+                            break;
+                        case (Key.Space):
+                            EndGame();
+                            break;
+                    }
+                    isDirectionChanged = true;
+                }
+            }
+            else
+            {
+                // No active game session
+                if (e.Key == Key.Space)
+                {
                     if (bdrWelcomeMessage.Visibility == Visibility.Visible || bdrGameOver.Visibility == Visibility.Visible)
                     {
-                        // Start the game
+                        // Start a new game
                         bdrWelcomeMessage.Visibility = Visibility.Collapsed;
                         bdrGameOver.Visibility = Visibility.Collapsed;
                         StartNewGame();
@@ -125,17 +142,7 @@ namespace Snake_Game
                         bdrHighscoreList.Visibility = Visibility.Collapsed;
                         bdrWelcomeMessage.Visibility = Visibility.Visible;
                     }
-                    else if (bdrNewHighScore.Visibility == Visibility.Visible)
-                    {
-                        // Do nothing
-                    }
-                    else
-                    {
-                        // If no pop-ups are open then game is in session
-                        // End the game
-                        EndGame();
-                    }
-                    break;
+                }
             }
         }
 
@@ -206,6 +213,7 @@ namespace Snake_Game
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
             // Actions to be performed every tick
+            isDirectionChanged = false;
             MoveSnake();
             CheckCollision();
         }
