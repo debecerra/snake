@@ -181,8 +181,8 @@ namespace Snake_Game
         }
 
         /// <summary>
-        /// EVent handler for BtnAddToHighscoreList Click - Add a new highscore entry
-        /// and open the highscore list 
+        /// Event handler for AddToHighscoreList button click.
+        /// Add a new high score entry and open the highscore list.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -192,21 +192,51 @@ namespace Snake_Game
         }
 
         /// <summary>
-        /// Event handler for BtnClearAllHighscores Click - Reset all highscore data
+        /// Event handler for ClearAllHighscores button click.
+        /// Open the Delete High Score dialogue.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnClearAllHighscores_Click(object sender, RoutedEventArgs e)
         {
+            // Navigate to Delete Confirmation
+            bdrHighscoreList.Visibility = Visibility.Collapsed;
+            bdrDeleteScoresConfirmation.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Event handler for YES button in Delete High Scores Confirmation.
+        /// High Scores List is cleared and application navigates to welcome screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnYesDeleteConfirmation_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear high score list
             HighscoreList.Clear();
             fileReader.SaveHighscoreList(HighscoreList);
 
-            bdrHighscoreList.Visibility = Visibility.Collapsed;
+            // Navigate to welcome page
+            bdrDeleteScoresConfirmation.Visibility = Visibility.Collapsed;
             bdrWelcomeMessage.Visibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// Event handler for game tick timer
+        /// Event handler for NO button in Delete High Scores Confirmation.
+        /// Application navigates to welcome screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnNoDeleteConfirmation_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigate to welcome page
+            bdrDeleteScoresConfirmation.Visibility = Visibility.Collapsed;
+            bdrWelcomeMessage.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Event handler for game tick timer. 
+        /// Perfom all actions need to occur every timed tick.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -551,5 +581,6 @@ namespace Snake_Game
 
         #endregion
 
+        
     }
 }

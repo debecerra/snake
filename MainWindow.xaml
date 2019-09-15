@@ -18,12 +18,12 @@
         </CollectionViewSource>
 
     </Window.Resources>
-    
+
     <DockPanel>
 
         <!--Game Status Bar-->
         <Grid DockPanel.Dock="Top">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -41,22 +41,22 @@
 
             <!--Display Score-->
             <WrapPanel Grid.Column="0" Margin="10,0,0,0">
-                <TextBlock>Score: </TextBlock>
+                <TextBlock>Score:</TextBlock>
                 <TextBlock Name="tbStatusScore">0</TextBlock>
             </WrapPanel>
-            
+
             <!--Display Speed-->
             <WrapPanel Grid.Column="1">
-                <TextBlock>Speed: </TextBlock>
+                <TextBlock>Speed:</TextBlock>
                 <TextBlock Name="tbStatusSpeed">0</TextBlock>
             </WrapPanel>
-            
+
             <!--Close Button-->
             <Button Grid.Column="2" DockPanel.Dock="Right"  Margin="10,0" Name="btnClose" Content="X" Click="BtnClose_Click"
                     FontFamily="Consolas" Foreground="White" FontSize="20" FontWeight="Bold" Background="Transparent"/>
 
         </Grid>
-        
+
         <!--Game Area-->
         <Border BorderBrush="Black" BorderThickness="5">
             <Canvas Name="GameArea" ClipToBounds="True" Width="400" Height="400">
@@ -80,7 +80,7 @@
                     </Style>
 
                 </Canvas.Resources>
-                
+
                 <!--Welcome Page-->
                 <Border Style="{StaticResource MessageBorderStyle}" Name="bdrWelcomeMessage">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
@@ -98,7 +98,28 @@
                         </Button>
                     </StackPanel>
                 </Border>
-                
+
+                <!--Game Over-->
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrGameOver" Visibility="Collapsed">
+                    <StackPanel Orientation="Vertical" Background="AliceBlue">
+                        <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" >
+                            Game Over!
+                        </TextBlock>
+                        <TextBlock FontSize="20" HorizontalAlignment="Center">
+                            Your Score:
+                        </TextBlock>
+                        <TextBlock Name="tbFinalScore" TextAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="Red" Margin="0,15,0,15" >
+                            0
+                        </TextBlock>
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="0,13,0,0">
+                            Press SPACE to start a new game...
+                        </TextBlock>
+                        <Button Name="btnShowighScoreList_fromGameOver" Click="BtnShowighScoreList_fromGameOver_Click" >
+                            Show High Score List...
+                        </Button>
+                    </StackPanel>
+                </Border>
+
                 <!--Highscore List-->
                 <Border Style="{StaticResource MessageBorderStyle}" Name="bdrHighscoreList" Visibility="Collapsed">
                     <DockPanel Background="AliceBlue">
@@ -124,11 +145,10 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </StackPanel>
-                        
+
                     </DockPanel>
-                    
                 </Border>
-                
+
                 <!--New Highscore-->
                 <Border Style="{StaticResource MessageBorderStyle}" Name="bdrNewHighScore" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
@@ -145,31 +165,25 @@
                     </StackPanel>
                 </Border>
                 
-                <!--Game Over-->
-                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrGameOver" Visibility="Collapsed">
+                <!--Delete High Scores Confirmation-->
+                <Border Style="{StaticResource MessageBorderStyle}" Name="bdrDeleteScoresConfirmation" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" Background="AliceBlue">
-                        <TextBlock FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" >
-                            Game Over!
+                        <TextBlock FontSize="25" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" TextAlignment="Center" Margin="20,40" TextWrapping="Wrap" >
+                            Are you sure you want to delete all saved high scores?
                         </TextBlock>
-                        <TextBlock FontSize="20" HorizontalAlignment="Center">
-                            Your Score:
-                        </TextBlock>
-                        <TextBlock Name="tbFinalScore" TextAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="Red" Margin="0,15,0,15" >
-                            0
-                        </TextBlock>
-                        <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="0,13,0,0">
-                            Press SPACE to start a new game...
-                        </TextBlock>
-                        <Button Name="btnShowighScoreList_fromGameOver" Click="BtnShowighScoreList_fromGameOver_Click" >
-                            Show High Score List...
-                        </Button>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Name="btnYesDeleteConfirmation" Click="BtnYesDeleteConfirmation_Click" FontSize="18">
+                                Yes
+                            </Button>
+                            <Button Name="btnNoDeleteConfirmation" Click="BtnNoDeleteConfirmation_Click" FontSize="18" IsDefault="True">
+                                No
+                            </Button>
+                        </WrapPanel>
                     </StackPanel>
                 </Border>
-                
+
             </Canvas>
-            
         </Border>
-        
+
     </DockPanel>
-    
 </Window>
